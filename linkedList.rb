@@ -1,3 +1,23 @@
+class Stack
+  attr_reader :data
+
+  def initialize
+    @data = []
+  end
+
+  def push(value)
+    @data << value
+  end
+
+  def pop
+    @data.delete_at(@data.length - 1)
+  end 
+
+  def peek
+    @data.last
+  end
+end
+
 class LinkedListNode
   attr_accessor :value, :next_node
 
@@ -13,47 +33,36 @@ def print_values(list_node)
     print_values(list_node.next_node)
   else
     print "nil\n"
-    return
   end
 end
 
-node1 = LinkedListNode.new(37)
-node2 = LinkedListNode.new(99, node1)
-node3 = LinkedListNode.new(12, node2)
+node1 = LinkedListNode.new(7)
+node2 = LinkedListNode.new(37, node1)
+node3 = LinkedListNode.new(96, node2)
 
-print_values(node3)
+def reverse_list(node)
+  stack = Stack.new
 
+  while node != nil do 
+    stack.push(node)
+    node = node.next_node
+  end
 
-
-class Stack
-    attr_reader :data
-
-    def initialize
-        @data = nil
-    end
-
-    # Push a value onto the stack
-    def push(value)
-        # IMPLEMENT ME!
-        node = LinkedListNode.New()
-    end
-
-    # Pop an item off the stack.
-    # Remove the last item that was pushed onto the
-    # stack and return the value to the user
-    def pop
-        # I RETURN A VALUE
-    end
-
+  first_node = stack.pop
+  cursor_node = first_node
+  while stack.peek != nil do
+    cursor_node.next_node = stack.pop
+    cursor_node = cursor_node.next_node
+  end
+  cursor_node.next_node = nil
+  first_node
 end
 
 
 
+print_values(node3)
 
+puts "-------"
 
-# Want to get this working to output reverse of linkedList:
-# puts "-------"
-
-# revlist = reverse_list(node3)
-
-# print_values(revlist)
+revlist = reverse_list(node3)
+print_values(revlist)
